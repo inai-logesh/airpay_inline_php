@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Airpay Payment Gateway</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,600&family=Roboto:wght@300;400;700&display=swap"
+		rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery.fancybox.css" media="screen" />
+	<script src="jquery.fancybox.js"></script>
+	<script src="airpaykit.js"></script>
+	
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="contentbody">
+			<div class="lside">
+
+				<div class="lsidewrap">
+					<div class="logo"><img src="airpay-text-wh.svg"></div>
+					<div class="coverimg"><img src="coverimg.png"></div>
+				</div>
+			</div>
+			<div class="rside">
+				<div class="formwrap container-fluid">
+					<form class="form-horizontal" name="make_trans" id="make_trans" target="tranframe" action="sendtoairpay.php" method="post" onsubmit = "">
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Email<font class="red">*</font></label>
+									<input type="text" id="buyerEmail" name="buyerEmail" autocomplete="on" value=""
+										maxlength="50">
+									<span id="buyerEmailspan" name="buyerEmailspan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Phone<font class="red">*</font></label>
+									<input type="text" id="buyerPhone" name="buyerPhone" autocomplete="on" value=""
+										maxlength="15">
+									<span id="buyerPhonespan" name="buyerPhonespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer First Name<font class="red">*</font></label>
+									<input type="text" id="buyerFirstName" name="buyerFirstName" autocomplete="on"
+										value="" onkeypress="changecolor(this.id,'buyerFirstNamespan')" maxlength="50">
+									<span id="buyerFirstNamespan" name="buyerFirstNamespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Last Name<font class="red">*</font></label>
+									<input type="text" id="buyerLastName" name="buyerLastName" autocomplete="on"
+										value="" onkeypress="changecolor(this.id,'buyerLastNamespan')" maxlength="50">
+									<span id="buyerLastNamespan" name="buyerLastNamespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Address</label>
+									<input type="text" id="buyerAddress" name="buyerAddress" autocomplete="on" value=""
+										maxlength="255" onkeypress="changecolor(this.id,'buyerAddressspan')">
+									<span id="buyerAddressspan" name="buyerAddressspan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer City</label>
+									<input type="text" id="buyerCity" name="buyerCity" maxlength="50" autocomplete="on"
+										value="" onkeypress="changecolor(this.id,'buyerCityspan')">
+									<span id="buyerCityspan" name="buyerCityspan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer State</label>
+									<input type="text" id="buyerState" name="buyerState" maxlength="50"
+										autocomplete="on" value="" onkeypress="changecolor(this.id,'buyerStatespan')">
+									<span id="buyerStatespan" name="buyerStatespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Country</label>
+									<input type="text" id="buyerCountry" name="buyerCountry" maxlength="50"
+										autocomplete="on" value="" onkeypress="changecolor(this.id,'buyerCountryspan')">
+									<span id="buyerCountryspan" name="buyerCountryspan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Buyer Pincode</label>
+									<input type="text" id="buyerPinCode" name="buyerPinCode" maxlength="8"
+										autocomplete="on" value="" onkeypress="changecolor(this.id,'buyerPinCodespan')">
+									<span id="buyerPinCodespan" name="buyerPinCodespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+						</div>
+						<hr>
+						</hr>
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Order ID<font class="red">*</font></label>
+									<input type="text" id="orderid" name="orderid" autocomplete="on" value="" maxlength="20">
+									<span id="orderidspan" name="orderidspan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Amount<font class="red">*</font></label>
+									<input type="text" id="amount" name="amount" autocomplete="on" value=""
+										onkeypress="changecolor(this.id,'amountspan')">
+									<span id="amountspan" name="amountspan" style="display:none" class="makeRed"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Custom Field 1</label>
+									<input type="text" id="customvar" name="customvar" autocomplete="on" value=""
+										onkeypress="changecolor(this.id,'customspan')">
+									<span id="customspan" name="customspan" style="display:none" class="makeRed"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Currency<font class="red">*</font></label>
+									<input type="text" id="currency" name="currency" autocomplete="on" value="356">
+									<span id="currencyspan" name="currencyspan" style="display:none"
+										class="makeRed" onkeypress="changecolor(this.id,'currencyspan')"></span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>ISO Currency<font class="red">*</font></label>
+									<input type="text" id="isocurrency" name="isocurrency" autocomplete="on" value="INR"
+										onkeypress="changecolor(this.id,'isocurrencyspan')">
+									<span id="isocurrencyspan" name="isocurrencyspan" style="display:none" class="makeRed"></span>
+								</div>
+							</div>
+							
+						</div>
+						<hr>
+						</hr>
+						<div class="row">
+
+							<div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Sub Type</label>
+									<input type="text" id="subtype" name="txnsubtype" maxlength="5">
+									<span id="subtypespan" name="subtypespan" style="display:none"
+										class="makeRed"></span>
+								</div>
+							</div>
+							<!-- <div class="col-md-6 col-lg-4">
+								<div class="form-group">
+									<label>Airpay Version</label>
+
+									<input type="text" id="arpyVer" name="arpyVer" maxlength="1" required>
+								</div>
+							</div> -->
+						</div>
+
+
+								<div class="btngroup">
+									<button type="submit" class="btn" id="btnsend">Pay Here</button>
+									<!-- <a id="video_link" href="#" style="display: none;"  >click here</a> -->
+									<!-- <a id="video_link" href="sendtoairpay.php" style="display: none;"  class="fancybox fancybox.iframe" >click here</a> -->
+									<!-- <a class="preview2" data-fancybox-type="ajax" href="preview.php" id="preview2">Preview</a> -->
+								</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		.makeRed {
+			color: red;
+		}
+	</style>
+	<script type="text/javascript">
+
+		function changecolor(txtid, spanid) {
+			document.getElementById(txtid).style.borderColor = '';
+			document.getElementById(spanid).style.display = 'none';
+		}
+
+	</script>
+</body>
+
+</html>
